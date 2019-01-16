@@ -122,6 +122,7 @@ app.use(
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
+  const isPageToBeCompletelySSRd = config.ssrEnabledRoutes.includes(req.path);
   try {
     const css = new Set();
 
@@ -158,10 +159,12 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    data.children = ReactDOM.renderToString(
-      <App context={context}>{route.component}</App>,
-    );
-    data.styles = [{ id: 'css', cssText: [...css].join('') }];
+    if (isPageToBeCompletelySSRd) {
+      data.children = ReactDOM.renderToString(
+        <App context={context}>{route.component}</App>,
+      );
+      data.styles = [{ id: 'css', cssText: [...css].join('') }];
+    }
 
     const scripts = new Set();
     const addChunk = chunk => {
@@ -179,7 +182,6 @@ app.get('*', async (req, res, next) => {
     data.app = {
       apiUrl: config.api.clientUrl,
     };
-
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
     res.status(route.status || 200);
     res.send(`<!doctype html>${html}`);

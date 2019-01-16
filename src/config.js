@@ -41,6 +41,7 @@ module.exports = {
     googleTrackingId: process.env.GOOGLE_TRACKING_ID, // UA-XXXXX-X
   },
 
+  ssrEnabledRoutes: ['/'],
   // Authentication
   auth: {
     jwt: { secret: process.env.JWT_SECRET || 'React Starter Kit' },
