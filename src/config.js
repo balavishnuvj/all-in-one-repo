@@ -9,6 +9,10 @@
 
 /* eslint-disable max-len */
 
+const { RSK_DB_USER, RSK_DB_PASSWORD, RSK_DB_HOST, RSK_DB_PORT } = process.env;
+
+const databaseName = 'employees';
+
 if (process.env.BROWSER) {
   throw new Error(
     'Do not import `config.js` from inside the client-side code.',
@@ -33,7 +37,7 @@ module.exports = {
   },
 
   // Database
-  databaseUrl: process.env.DATABASE_URL || 'sqlite:database.sqlite',
+  databaseUrl: `mysql://${RSK_DB_USER}:${RSK_DB_PASSWORD}@${RSK_DB_HOST}:${RSK_DB_PORT}/${databaseName}`,
 
   // Web analytics
   analytics: {
