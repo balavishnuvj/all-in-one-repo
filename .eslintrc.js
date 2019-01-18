@@ -45,7 +45,14 @@ module.exports = {
         allow: ['warn', 'error', 'info'],
       },
     ],
-
+    // Allow only special identifiers
+    // https://eslint.org/docs/rules/no-underscore-dangle
+    'no-underscore-dangle': [
+      'error',
+      {
+        allow: ['__typename'],
+      },
+    ],
     // Prefer destructuring from arrays and objects
     // http://eslint.org/docs/rules/prefer-destructuring
     'prefer-destructuring': [

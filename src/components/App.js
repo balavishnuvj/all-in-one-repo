@@ -9,6 +9,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ApolloProvider } from 'react-apollo';
 
 const ContextType = {
   // Enables critical path CSS rendering
@@ -17,7 +18,8 @@ const ContextType = {
   // Universal HTTP client
   fetch: PropTypes.func.isRequired,
   pathname: PropTypes.string.isRequired,
-  query: PropTypes.object,
+  query: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  client: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 /**
@@ -51,13 +53,18 @@ class App extends React.PureComponent {
   static childContextTypes = ContextType;
 
   getChildContext() {
-    return this.props.context;
+    const { context } = this.props;
+    return context;
   }
 
   render() {
+    const {
+      context: { client },
+      children,
+    } = this.props;
     // NOTE: If you need to add or modify header, footer etc. of the app,
     // please do that inside the Layout component.
-    return React.Children.only(this.props.children);
+    return <ApolloProvider client={client}>{children}</ApolloProvider>;
   }
 }
 
