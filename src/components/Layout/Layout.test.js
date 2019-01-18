@@ -14,12 +14,21 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import App from '../App';
 import Layout from './Layout';
+import createApolloClient from '../../utils/core/apollo';
 
 describe('Layout', () => {
   test('renders children correctly', () => {
+    const client = createApolloClient();
     const wrapper = renderer
       .create(
-        <App context={{ insertCss: () => {}, fetch: () => {}, pathname: '' }}>
+        <App
+          context={{
+            insertCss: () => {},
+            fetch: () => {},
+            client,
+            pathname: '',
+          }}
+        >
           <Layout>
             <div className="child" />
           </Layout>

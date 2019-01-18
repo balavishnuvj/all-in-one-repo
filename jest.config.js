@@ -91,6 +91,7 @@ module.exports = {
 
   transform: {
     '\\.(js|jsx|mjs)$': '<rootDir>/node_modules/babel-jest',
+    '\\.(gql|graphql)$': '<rootDir>/node_modules/jest-transform-graphql',
     '^(?!.*\\.(js|jsx|json|css|less|styl|scss|sass|sss)$)':
       '<rootDir>/tools/lib/fileTransformer.js',
   },

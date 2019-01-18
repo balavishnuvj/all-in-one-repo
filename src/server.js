@@ -11,6 +11,7 @@ import path from 'path';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import Promise from 'bluebird';
 import expressJwt, { UnauthorizedError as Jwt401Error } from 'express-jwt';
 import { graphql } from 'graphql';
 import expressGraphQL from 'express-graphql';
@@ -19,8 +20,10 @@ import nodeFetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
+import { getDataFromTree } from 'react-apollo';
 import App from './components/App';
 import Html from './components/Html';
+import createApolloClient from './utils/core/apollo';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
 import createFetch from './createFetch';
@@ -108,15 +111,15 @@ app.get(
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
-app.use(
-  '/graphql',
-  expressGraphQL(req => ({
-    schema,
-    graphiql: __DEV__,
-    rootValue: { request: req },
-    pretty: __DEV__,
-  })),
-);
+// https://github.com/graphql/express-graphql#options
+const graphqlMiddleware = expressGraphQL(req => ({
+  schema,
+  graphiql: __DEV__,
+  rootValue: { request: req },
+  pretty: __DEV__,
+}));
+
+app.use('/graphql', graphqlMiddleware);
 
 //
 // Register server-side rendering middleware
@@ -133,10 +136,16 @@ app.get('*', async (req, res, next) => {
       styles.forEach(style => css.add(style._getCss()));
     };
 
+    const apolloClient = createApolloClient({
+      schema,
+      rootValue: { request: req },
+    });
+
     // Universal HTTP client
     const fetch = createFetch(nodeFetch, {
       baseUrl: config.api.serverUrl,
       cookie: req.headers.cookie,
+      apolloClient,
       schema,
       graphql,
     });
@@ -149,6 +158,8 @@ app.get('*', async (req, res, next) => {
       // The twins below are wild, be careful!
       pathname: req.path,
       query: req.query,
+      // Apollo Client for use with react-apollo
+      client: apolloClient,
     };
 
     const route = await router.resolve(context);
@@ -156,14 +167,6 @@ app.get('*', async (req, res, next) => {
     if (route.redirect) {
       res.redirect(route.status || 302, route.redirect);
       return;
-    }
-
-    const data = { ...route };
-    if (isPageToBeCompletelySSRd) {
-      data.children = ReactDOM.renderToString(
-        <App context={context}>{route.component}</App>,
-      );
-      data.styles = [{ id: 'css', cssText: [...css].join('') }];
     }
 
     const scripts = new Set();
@@ -178,10 +181,22 @@ app.get('*', async (req, res, next) => {
     if (route.chunk) addChunk(route.chunk);
     if (route.chunks) route.chunks.forEach(addChunk);
 
+    const data = { ...route };
+    if (isPageToBeCompletelySSRd) {
+      const rootComponent = <App context={context}>{route.component}</App>;
+      await getDataFromTree(rootComponent);
+      // this is here because of Apollo redux APOLLO_QUERY_STOP action
+      await Promise.delay(0);
+      data.children = await ReactDOM.renderToString(rootComponent);
+      data.styles = [{ id: 'css', cssText: [...css].join('') }];
+    }
     data.scripts = Array.from(scripts);
+    // Furthermore invoked actions will be ignored, client will not receive them!
     data.app = {
       apiUrl: config.api.clientUrl,
+      apolloState: context.client.extract(),
     };
+
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
     res.status(route.status || 200);
     res.send(`<!doctype html>${html}`);
