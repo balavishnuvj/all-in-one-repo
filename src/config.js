@@ -11,7 +11,7 @@
 
 const { RSK_DB_USER, RSK_DB_PASSWORD, RSK_DB_HOST, RSK_DB_PORT } = process.env;
 
-const databaseName = 'employees';
+const databaseName = 'testingUser';
 
 if (process.env.BROWSER) {
   throw new Error(

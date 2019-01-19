@@ -16,7 +16,7 @@ import { createPath } from 'history/PathUtils';
 import App from './components/App';
 import createFetch from './createFetch';
 import history from './history';
-import createApolloClient from './utils/core/apollo';
+import createApolloClient from './utils/shared/apollo';
 import { updateMeta } from './DOMUtils';
 import router from './router';
 

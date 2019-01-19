@@ -23,7 +23,7 @@ import PrettyError from 'pretty-error';
 import { getDataFromTree } from 'react-apollo';
 import App from './components/App';
 import Html from './components/Html';
-import createApolloClient from './utils/core/apollo';
+import createApolloClient from './utils/shared/apollo';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
 import createFetch from './createFetch';
