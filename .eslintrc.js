@@ -14,14 +14,12 @@ module.exports = {
 
   extends: [
     'airbnb',
-    'plugin:flowtype/recommended',
     'plugin:css-modules/recommended',
     'prettier',
-    'prettier/flowtype',
     'prettier/react',
   ],
 
-  plugins: ['flowtype', 'css-modules', 'prettier'],
+  plugins: ['typescript', 'css-modules', 'prettier'],
 
   globals: {
     __DEV__: true,
@@ -35,6 +33,7 @@ module.exports = {
     // Forbid the use of extraneous packages
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md
     'import/no-extraneous-dependencies': ['error', { packageDir: '.' }],
+    'import/extensions': [0, 'never', { ts: 'never' }],
 
     // Recommend not to leave any console.log in your code
     // Use console.error, console.warn and console.info instead
@@ -85,7 +84,10 @@ module.exports = {
 
     // Allow .js files to use JSX syntax
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
-    'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx'] }],
+    'react/jsx-filename-extension': [
+      'error',
+      { extensions: ['.js', '.jsx', '.tsx'] },
+    ],
 
     // Functional and class components are equivalent from React’s point of view
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md
@@ -103,6 +105,7 @@ module.exports = {
       node: {
         moduleDirectory: ['node_modules', 'src'],
       },
+      'eslint-import-resolver-typescript': true,
     },
   },
 };

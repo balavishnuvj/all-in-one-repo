@@ -19,7 +19,7 @@ module.exports = {
         },
       },
     ],
-    '@babel/preset-flow',
+    '@babel/preset-typescript',
     '@babel/preset-react',
   ],
   plugins: [
