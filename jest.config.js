@@ -55,7 +55,7 @@ module.exports = {
 
   // The default extensions Jest will look for.
   // https://facebook.github.io/jest/docs/en/configuration.html#modulefileextensions-array-string
-  moduleFileExtensions: ['js', 'json', 'jsx', 'node'],
+  moduleFileExtensions: ['js', 'json', 'jsx', 'node', 'ts', 'tsx'],
 
   // moduleDirectories: // [array<string>]
 
@@ -91,6 +91,7 @@ module.exports = {
 
   transform: {
     '\\.(js|jsx|mjs)$': '<rootDir>/node_modules/babel-jest',
+    '^.+\\.ts?$': '<rootDir>/node_modules/babel-jest',
     '\\.(gql|graphql)$': '<rootDir>/node_modules/jest-transform-graphql',
     '^(?!.*\\.(js|jsx|json|css|less|styl|scss|sass|sss)$)':
       '<rootDir>/tools/lib/fileTransformer.js',
