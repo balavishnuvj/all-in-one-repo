@@ -13,7 +13,7 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import styledNormalize from 'styled-normalize';
 import theme from '../../utils/shared/theme';
 import globalStyles from './globalStyles';
-import Header from '../Header/Header';
+import Header from '../Header';
 import Feedback from '../Feedback';
 import Footer from '../Footer';
 
@@ -31,7 +31,7 @@ class Layout extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <div>
-          <Header />
+          <Header testingProps="Sri Kanya" />
           <GlobalStyle />
           {children}
           <Feedback />
