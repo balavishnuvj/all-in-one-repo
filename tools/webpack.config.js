@@ -35,9 +35,9 @@ const staticAssetName = isDebug
   : '[hash:8].[ext]';
 
 // CSS Nano options http://cssnano.co/
-const minimizeCssOptions = {
-  discardComments: { removeAll: true },
-};
+// const minimizeCssOptions = {
+//   discardComments: { removeAll: true },
+// };
 
 //
 // Common configuration chunk to be used for both

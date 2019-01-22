@@ -17,8 +17,8 @@ class Admin extends React.Component {
 
   render() {
     return (
-      <div className={s.root}>
-        <div className={s.container}>
+      <div className="root">
+        <div className="container">
           <h1>{this.props.title}</h1>
           <p>...</p>
         </div>
