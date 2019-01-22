@@ -20,4 +20,4 @@ jobs:
             - ~/.cache/yarn
       - run:
           name: test
-          command: yarn test
+          command: yarn test --coverage

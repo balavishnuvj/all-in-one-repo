@@ -46,6 +46,16 @@ module.exports = {
   // coverageReporters: [], // [array<string>]
   // coverageThreshold: {}, // [object]
 
+  // all values are on current coverage. Will increase.
+  coverageThreshold: {
+    global: {
+      statements: 3.5,
+      branches: 0.5,
+      functions: 11.5,
+      lines: 3.5,
+    },
+  },
+
   globals: {
     __DEV__: true,
   },
