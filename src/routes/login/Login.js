@@ -16,10 +16,11 @@ class Login extends React.Component {
   };
 
   render() {
+    const { title } = this.props;
     return (
       <div className="root">
         <div className="container">
-          <h1>{this.props.title}</h1>
+          <h1>{title}</h1>
           <p className="lead">
             Log in with your username or company email address.
           </p>

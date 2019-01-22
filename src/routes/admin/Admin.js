@@ -16,10 +16,11 @@ class Admin extends React.Component {
   };
 
   render() {
+    const { title } = this.props;
     return (
       <div className="root">
         <div className="container">
-          <h1>{this.props.title}</h1>
+          <h1>{title}</h1>
           <p>...</p>
         </div>
       </div>
