@@ -2,89 +2,9 @@
 
 exports[`Layout renders children correctly 1`] = `
 <div>
-  <div
-    className="root"
-  >
-    <div
-      className="container"
-    >
-      <div
-        className="root"
-        role="navigation"
-      >
-        <a
-          className="link"
-          href="/about"
-          onClick={[Function]}
-        >
-          About
-        </a>
-        <a
-          className="link"
-          href="/contact"
-          onClick={[Function]}
-        >
-          Contact
-        </a>
-        <span
-          className="spacer"
-        >
-           | 
-        </span>
-        <a
-          className="link"
-          href="/login"
-          onClick={[Function]}
-        >
-          Log in
-        </a>
-        <span
-          className="spacer"
-        >
-          or
-        </span>
-        <a
-          className="link highlight"
-          href="/register"
-          onClick={[Function]}
-        >
-          Sign up
-        </a>
-      </div>
-      <a
-        className="brand"
-        href="/"
-        onClick={[Function]}
-      >
-        <img
-          alt="React"
-          height="38"
-          src="logo-small.png"
-          srcSet="logo-small@2x.png 2x"
-          width="38"
-        />
-        <span
-          className="brandTxt"
-        >
-          Your Company
-        </span>
-      </a>
-      <div
-        className="banner"
-      >
-        <h1
-          className="bannerTitle"
-        >
-          React
-        </h1>
-        <p
-          className="bannerDesc"
-        >
-          Complex web apps made easy
-        </p>
-      </div>
-    </div>
-  </div>
+  <Header.tsx
+    testingProps="Sri Kanya"
+  />
   <div
     className="child"
   />
