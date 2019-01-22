@@ -14,7 +14,6 @@ import styledNormalize from 'styled-normalize';
 import theme from '../../utils/shared/theme';
 import globalStyles from './globalStyles';
 import Header from '../Header/Header';
-import Feedback from '../Feedback';
 import Footer from '../Footer';
 
 const GlobalStyle = createGlobalStyle`
@@ -34,7 +33,6 @@ class Layout extends React.Component {
           <Header />
           <GlobalStyle />
           {children}
-          <Feedback />
           <Footer />
         </div>
       </ThemeProvider>

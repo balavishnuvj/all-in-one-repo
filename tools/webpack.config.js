@@ -132,29 +132,32 @@ const config = {
         loader: 'graphql-tag/loader',
       },
 
-      // Rules for Style Sheets
       {
-        test: reStyle,
-        rules: [
-          // Convert CSS into JS module
+        test: /\.css$/,
+        include: [/node_modules\/.*antd/],
+        use: [
           {
-            issuer: { not: [reStyle] },
-            use: 'isomorphic-style-loader',
+            loader: 'style-loader',
           },
-
-          // Process external/third-party styles
           {
-            exclude: SRC_DIR,
             loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader',
             options: {
-              sourceMap: isDebug,
-              minimize: isDebug ? false : minimizeCssOptions,
+              config: {
+                path: './tools/postcss.config.js',
+              },
             },
           },
+        ],
+      },
 
-          // Process internal/project styles (from src folder)
+      {
+        test: /\.css/,
+        exclude: [/node_modules\/.*antd/],
+        use: [
           {
-            include: SRC_DIR,
             loader: 'css-loader',
             options: {
               // CSS Loader https://github.com/webpack/css-loader
@@ -165,12 +168,11 @@ const config = {
               localIdentName: isDebug
                 ? '[name]-[local]-[hash:base64:5]'
                 : '[hash:base64:5]',
-              // CSS Nano http://cssnano.co/
-              minimize: isDebug ? false : minimizeCssOptions,
+              // CSS Nano http://cssnano.co/options/
+              minimize: !isDebug,
+              discardComments: { removeAll: true },
             },
           },
-
-          // Apply PostCSS plugins including autoprefixer
           {
             loader: 'postcss-loader',
             options: {
@@ -179,24 +181,90 @@ const config = {
               },
             },
           },
-
-          // Compile Less to CSS
-          // https://github.com/webpack-contrib/less-loader
-          // Install dependencies before uncommenting: yarn add --dev less-loader less
-          // {
-          //   test: /\.less$/,
-          //   loader: 'less-loader',
-          // },
-
-          // Compile Sass to CSS
-          // https://github.com/webpack-contrib/sass-loader
-          // Install dependencies before uncommenting: yarn add --dev sass-loader node-sass
-          // {
-          //   test: /\.(scss|sass)$/,
-          //   loader: 'sass-loader',
-          // },
         ],
       },
+
+      // Rules for Style Sheets
+      // {
+      //   test: reStyle,
+      //   rules: [
+      //     // Convert CSS into JS module
+      //     {
+      //       test: /\.css$/,
+      //       include: [/node_modules\/.*antd/],
+      //       use: ['css-loader'],
+      //     },
+
+      //     // {
+      //     //   issuer: { not: [reStyle] },
+      //     //   exclude: [/node_modules\/.*antd/],
+      //     //   use: 'isomorphic-style-loader',
+      //     // },
+
+      //     // Process external/third-party styles
+      //     {
+      //       exclude: SRC_DIR,
+      //       loader: 'css-loader',
+      //       options: {
+      //         sourceMap: isDebug,
+      //         minimize: isDebug ? false : minimizeCssOptions,
+      //       },
+      //     },
+
+      //     // Process internal/project styles (from src folder)
+      //     {
+      //       include: SRC_DIR,
+      //       loader: 'css-loader',
+      //       options: {
+      //         // CSS Loader https://github.com/webpack/css-loader
+      //         importLoaders: 1,
+      //         sourceMap: isDebug,
+      //         // CSS Modules https://github.com/css-modules/css-modules
+      //         modules: true,
+      //         localIdentName: isDebug
+      //           ? '[name]-[local]-[hash:base64:5]'
+      //           : '[hash:base64:5]',
+      //         // CSS Nano http://cssnano.co/
+      //         minimize: isDebug ? false : minimizeCssOptions,
+      //       },
+      //     },
+
+      //     // Apply PostCSS plugins including autoprefixer
+      //     {
+      //       loader: 'postcss-loader',
+      //       options: {
+      //         config: {
+      //           path: './tools/postcss.config.js',
+      //         },
+      //       },
+      //     },
+
+      //     // Compile Less to CSS
+      //     // https://github.com/webpack-contrib/less-loader
+      //     // Install dependencies before uncommenting: yarn add --dev less-loader less
+      //     // {
+      //     //   test: /\.less$/,
+      //     //   use: [{
+      //     //     loader: "style-loader"
+      //     //     }, {
+      //     //     loader: "css-loader"
+      //     //     }, {
+      //     //     loader: "less-loader",
+      //     //     options: {
+      //     //         javascriptEnabled: true
+      //     //     }
+      //     // }]
+      //     // },
+
+      //     // Compile Sass to CSS
+      //     // https://github.com/webpack-contrib/sass-loader
+      //     // Install dependencies before uncommenting: yarn add --dev sass-loader node-sass
+      //     // {
+      //     //   test: /\.(scss|sass)$/,
+      //     //   loader: 'sass-loader',
+      //     // },
+      //   ],
+      // },
 
       // Rules for images
       {
@@ -511,5 +579,10 @@ const serverConfig = {
     __dirname: false,
   },
 };
+
+clientConfig.module.rules[0].options.plugins = [
+  ...clientConfig.module.rules[0].options.plugins,
+  ['import', { libraryName: 'antd', style: 'css' }],
+];
 
 export default [clientConfig, serverConfig];
