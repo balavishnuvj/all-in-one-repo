@@ -26,7 +26,11 @@ class Html extends React.Component {
     ),
     scripts: PropTypes.arrayOf(PropTypes.string.isRequired),
     app: PropTypes.object, // eslint-disable-line
-    children: PropTypes.string.isRequired,
+    children: PropTypes.string,
+  };
+
+  static defaultProps = {
+    children: '',
   };
 
   static defaultProps = {
@@ -62,7 +66,9 @@ class Html extends React.Component {
           <script
             dangerouslySetInnerHTML={{ __html: `window.App=${serialize(app)}` }}
           />
-          {scripts.map(script => <script key={script} src={script} />)}
+          {scripts.map(script => (
+            <script key={script} src={script} />
+          ))}
           {config.analytics.googleTrackingId && (
             <script
               dangerouslySetInnerHTML={{

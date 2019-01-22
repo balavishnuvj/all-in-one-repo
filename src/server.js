@@ -21,6 +21,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
 import { getDataFromTree } from 'react-apollo';
+import { ServerStyleSheet } from 'styled-components';
 import App from './components/App';
 import Html from './components/Html';
 import createApolloClient from './utils/shared/apollo';
@@ -126,6 +127,7 @@ app.use('/graphql', graphqlMiddleware);
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
   const isPageToBeCompletelySSRd = config.ssrEnabledRoutes.includes(req.path);
+  const sheet = new ServerStyleSheet();
   try {
     const css = new Set();
 
@@ -196,10 +198,25 @@ app.get('*', async (req, res, next) => {
       apiUrl: config.api.clientUrl,
       apolloState: context.client.extract(),
     };
-
-    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+    const jsx = sheet.collectStyles(<Html {...data} />);
+    if (isPageToBeCompletelySSRd) {
+      //  stream is enabled if page is SSRd. else it would be direct send;
+      res.write('<!doctype html>');
+      const stream = sheet.interleaveWithNodeStream(
+        ReactDOM.renderToStaticNodeStream(jsx),
+      );
+      stream.pipe(
+        res,
+        { end: false },
+      );
+      stream.on('end', () => {
+        res.end();
+      });
+    } else {
+      const html = ReactDOM.renderToString(jsx);
+      res.send(`<!doctype html>${sheet.getStyleTags()}${html}`);
+    }
     res.status(route.status || 200);
-    res.send(`<!doctype html>${html}`);
   } catch (err) {
     next(err);
   }
