@@ -36,6 +36,6 @@ describe('Layout', () => {
       )
       .toJSON();
 
-    // expect(wrapper).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

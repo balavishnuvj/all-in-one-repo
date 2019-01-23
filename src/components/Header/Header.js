@@ -8,7 +8,6 @@
  */
 
 import React from 'react';
-import { Button } from 'antd';
 import Link from '../Link';
 import Navigation from '../Navigation';
 import logoUrl from './logo-small.png';
@@ -20,7 +19,6 @@ class Header extends React.Component {
       <div className="root">
         <div className="container">
           <Navigation />
-          <Button type="primary">Hello</Button>
           <Link className="brand" to="/">
             <img
               src={logoUrl}
