@@ -31,7 +31,7 @@ class Layout extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <div>
-          <Header testingProps="Sri Kanya" />
+          <Header />
           <GlobalStyle />
           {children}
           <Feedback />

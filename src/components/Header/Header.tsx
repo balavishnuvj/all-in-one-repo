@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
   HeaderContainer,
-} from './header.styled';
+} from './Header.styled';
 import IogoSmall from './logo-small.png';
 
 interface IProps {
@@ -9,13 +9,14 @@ interface IProps {
 }
 
 function Header(props: IProps) {
+  const { testingProps } = props;
   return (
     <HeaderContainer>
       <span>
         <img src={IogoSmall} alt={'logo'} />
       </span>
       <span>
-        Hello {props.testingProps} !
+        Hello {testingProps} !
         </span>
     </HeaderContainer>
   );
