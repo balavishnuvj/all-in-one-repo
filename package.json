@@ -15,6 +15,13 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-typescript": "^7.1.0",
+    "@types/bluebird": "^3.5.25",
+    "@types/cookie-parser": "^1.4.1",
+    "@types/express-graphql": "^0.6.2",
+    "@types/express-jwt": "^0.0.41",
+    "@types/graphql": "^14.0.5",
+    "@types/jsonwebtoken": "^8.3.0",
+    "@types/node-fetch": "^2.1.4",
     "@types/react": "^16.7.20",
     "@types/react-dom": "^16.0.11",
     "@types/styled-components": "^4.1.6",
@@ -160,7 +167,7 @@
         "git add --force"
       ],
       "*.{ts,tsx}": [
-        "eslint --no-ignore --fix",
+        "tslint --fix -p tsconfig.json",
         "git add --force"
       ],
       "*.{json,md,graphql}": [
@@ -175,9 +182,10 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "lint-js": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" .",
+    "lint-js": "eslint --ignore-path .gitignore .",
+    "lint-ts": "tslint --config tslint.json --project tsconfig.json",
     "lint-css": "stylelint \"src/**/*.{css,less,styl,scss,sass,sss}\"",
-    "lint": "yarn run lint-js && yarn run lint-css",
+    "lint": "yarn run lint-js && yarn run lint-css && yarn run lint-ts",
     "fix-js": "yarn run lint-js --fix",
     "fix-css": "yarn run lint-css --fix",
     "fix": "yarn run fix-js && yarn run fix-css",
@@ -196,6 +204,8 @@
     "deploy": "babel-node tools/run deploy",
     "render": "babel-node tools/run render",
     "serve": "babel-node tools/run runServer",
-    "start": "babel-node tools/run start"
+    "start": "babel-node tools/run start",
+    "tsc": "tsc",
+    "validate": "yarn run lint && yarn run test && yarn run tsc"
   }
 }

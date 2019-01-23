@@ -28,7 +28,7 @@ async function copy() {
           engines: pkg.engines,
           dependencies: pkg.dependencies,
           scripts: {
-            start: 'node server.js',
+            start: 'node server.tsx',
           },
         },
         null,
