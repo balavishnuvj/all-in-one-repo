@@ -38,7 +38,7 @@ import schema from './data/schema';
 // tslint:disable-next-line
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
 import config from './config';
-import { module, global, IExpressWithHMR  } from './server.types';
+import { IExpressWithHMR, IHotNodeModule, IGlobal } from './server.types';
 
 process.on('unhandledRejection', (reason, p) => {
   console.error('Unhandled Rejection at:', p, 'reason:', reason);
@@ -46,13 +46,20 @@ process.on('unhandledRejection', (reason, p) => {
   process.exit(1);
 });
 
+const globalNode: IGlobal = {
+  navigator: {
+    userAgent: 'all',
+  },
+  ...global,
+};
+
 // @ts-ignore this is global variable
 const isDev = __DEV__;
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
 // user agent is not known.
 // -----------------------------------------------------------------------------
-global.navigator = global.navigator || { userAgent: 'all' };
+globalNode.navigator = globalNode.navigator || { userAgent: 'all' };
 // global.navigator.userAgent = global.navigator.userAgent || 'all';
 
 const app: IExpressWithHMR = express();
@@ -82,15 +89,22 @@ app.use(
 );
 
 // Error handler for express-jwt
-app.use((err: IError, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  // eslint-disable-line no-unused-vars
-  if (err instanceof Jwt401Error) {
-    console.error('[express-jwt-error]', req.cookies.id_token);
-    // `clearCookie`, otherwise user can't use web-app until cookie expires
-    res.clearCookie('id_token');
-  }
-  next(err);
-});
+app.use(
+  (
+    err: IError,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+  ) => {
+    // eslint-disable-line no-unused-vars
+    if (err instanceof Jwt401Error) {
+      console.error('[express-jwt-error]', req.cookies.id_token);
+      // `clearCookie`, otherwise user can't use web-app until cookie expires
+      res.clearCookie('id_token');
+    }
+    next(err);
+  },
+);
 
 app.use(passport.initialize());
 
@@ -165,8 +179,12 @@ app.get('*', async (req, res, next) => {
       }
     };
     addChunk('client');
-    if (route.chunk) { addChunk(route.chunk); }
-    if (route.chunks) { route.chunks.forEach(addChunk); }
+    if (route.chunk) {
+      addChunk(route.chunk);
+    }
+    if (route.chunks) {
+      route.chunks.forEach(addChunk);
+    }
 
     const data = { ...route };
     if (isPageToBeCompletelySSRd) {
@@ -234,7 +252,7 @@ app.use((err: IError, req: express.Request, res: express.Response) => {
 // Launch the server
 // -----------------------------------------------------------------------------
 const promise = models.sync().catch((err: IError) => console.error(err.stack));
-if (!module.hot) {
+if (!(module as IHotNodeModule).hot) {
   promise.then(() => {
     app.listen(config.port, () => {
       console.info(`The server is running at http://localhost:${config.port}/`);
@@ -245,9 +263,9 @@ if (!module.hot) {
 //
 // Hot Module Replacement
 // -----------------------------------------------------------------------------
-if (module.hot) {
-  app.hot = module.hot;
-  module.hot.accept('./router');
+if ((module as IHotNodeModule).hot) {
+  app.hot = (module as IHotNodeModule).hot;
+  (module as IHotNodeModule).hot.accept('./router');
 }
 
 export default app;
