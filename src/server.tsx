@@ -7,24 +7,26 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+/* global __DEV__ */
+
 import path from 'path';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import Promise from 'bluebird';
+import BlueBird from 'bluebird';
 import expressJwt, { UnauthorizedError as Jwt401Error } from 'express-jwt';
 import { graphql } from 'graphql';
 import expressGraphQL from 'express-graphql';
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 import nodeFetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
 import { getDataFromTree } from 'react-apollo';
 import { ServerStyleSheet } from 'styled-components';
-import App from './components/App';
+import App from './components/App.js';
 import Html from './components/Html';
-import createApolloClient from './utils/shared/apollo';
+import createApolloClient from './utils/shared/apollo/createApolloClient.server';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
 import createFetch from './createFetch';
@@ -33,8 +35,10 @@ import router from './router';
 import models from './data/models';
 import schema from './data/schema';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
+// tslint:disable-next-line
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
 import config from './config';
+import { module, global, IExpressWithHMR  } from './server.types';
 
 process.on('unhandledRejection', (reason, p) => {
   console.error('Unhandled Rejection at:', p, 'reason:', reason);
@@ -42,21 +46,22 @@ process.on('unhandledRejection', (reason, p) => {
   process.exit(1);
 });
 
+// @ts-ignore this is global variable
+const isDev = __DEV__;
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
 // user agent is not known.
 // -----------------------------------------------------------------------------
-global.navigator = global.navigator || {};
-global.navigator.userAgent = global.navigator.userAgent || 'all';
+global.navigator = global.navigator || { userAgent: 'all' };
+// global.navigator.userAgent = global.navigator.userAgent || 'all';
 
-const app = express();
+const app: IExpressWithHMR = express();
 
 //
 // If you are using proxy from external machine, you can set TRUST_PROXY env
 // Default is to trust proxy headers only from loopback interface.
 // -----------------------------------------------------------------------------
 app.set('trust proxy', config.trustProxy);
-
 //
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
@@ -72,11 +77,12 @@ app.use(
   expressJwt({
     secret: config.auth.jwt.secret,
     credentialsRequired: false,
-    getToken: req => req.cookies.id_token,
+    getToken: (req) => req.cookies.id_token,
   }),
 );
+
 // Error handler for express-jwt
-app.use((err, req, res, next) => {
+app.use((err: IError, req: express.Request, res: express.Response, next: express.NextFunction) => {
   // eslint-disable-line no-unused-vars
   if (err instanceof Jwt401Error) {
     console.error('[express-jwt-error]', req.cookies.id_token);
@@ -88,36 +94,15 @@ app.use((err, req, res, next) => {
 
 app.use(passport.initialize());
 
-app.get(
-  '/login/facebook',
-  passport.authenticate('facebook', {
-    scope: ['email', 'user_location'],
-    session: false,
-  }),
-);
-app.get(
-  '/login/facebook/return',
-  passport.authenticate('facebook', {
-    failureRedirect: '/login',
-    session: false,
-  }),
-  (req, res) => {
-    const expiresIn = 60 * 60 * 24 * 180; // 180 days
-    const token = jwt.sign(req.user, config.auth.jwt.secret, { expiresIn });
-    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
-    res.redirect('/');
-  },
-);
-
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
 // https://github.com/graphql/express-graphql#options
-const graphqlMiddleware = expressGraphQL(req => ({
+const graphqlMiddleware = expressGraphQL((req) => ({
   schema,
-  graphiql: __DEV__,
+  graphiql: isDev,
   rootValue: { request: req },
-  pretty: __DEV__,
+  pretty: isDev,
 }));
 
 app.use('/graphql', graphqlMiddleware);
@@ -133,9 +118,10 @@ app.get('*', async (req, res, next) => {
 
     // Enables critical path CSS rendering
     // https://github.com/kriasoft/isomorphic-style-loader
+    // @ts-ignore this would be removed later
     const insertCss = (...styles) => {
       // eslint-disable-next-line no-underscore-dangle
-      styles.forEach(style => css.add(style._getCss()));
+      styles.forEach((style) => css.add(style._getCss()));
     };
 
     const apolloClient = createApolloClient({
@@ -147,7 +133,6 @@ app.get('*', async (req, res, next) => {
     const fetch = createFetch(nodeFetch, {
       baseUrl: config.api.serverUrl,
       cookie: req.headers.cookie,
-      apolloClient,
       schema,
       graphql,
     });
@@ -172,23 +157,23 @@ app.get('*', async (req, res, next) => {
     }
 
     const scripts = new Set();
-    const addChunk = chunk => {
+    const addChunk = (chunk: string) => {
       if (chunks[chunk]) {
-        chunks[chunk].forEach(asset => scripts.add(asset));
-      } else if (__DEV__) {
+        chunks[chunk].forEach((asset: string) => scripts.add(asset));
+      } else if (isDev) {
         throw new Error(`Chunk with name '${chunk}' cannot be found`);
       }
     };
     addChunk('client');
-    if (route.chunk) addChunk(route.chunk);
-    if (route.chunks) route.chunks.forEach(addChunk);
+    if (route.chunk) { addChunk(route.chunk); }
+    if (route.chunks) { route.chunks.forEach(addChunk); }
 
     const data = { ...route };
     if (isPageToBeCompletelySSRd) {
       const rootComponent = <App context={context}>{route.component}</App>;
       await getDataFromTree(rootComponent);
       // this is here because of Apollo redux APOLLO_QUERY_STOP action
-      await Promise.delay(0);
+      await BlueBird.delay(0);
       data.children = await ReactDOM.renderToString(rootComponent);
       data.styles = [{ id: 'css', cssText: [...css].join('') }];
     }
@@ -230,7 +215,7 @@ pe.skipNodeFiles();
 pe.skipPackage('express');
 
 // eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
+app.use((err: IError, req: express.Request, res: express.Response) => {
   console.error(pe.render(err));
   const html = ReactDOM.renderToStaticMarkup(
     <Html
@@ -248,7 +233,7 @@ app.use((err, req, res, next) => {
 //
 // Launch the server
 // -----------------------------------------------------------------------------
-const promise = models.sync().catch(err => console.error(err.stack));
+const promise = models.sync().catch((err: IError) => console.error(err.stack));
 if (!module.hot) {
   promise.then(() => {
     app.listen(config.port, () => {
