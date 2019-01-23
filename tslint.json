@@ -1,6 +1,14 @@
 {
   "extends": ["tslint:latest", "tslint-react"],
   "rules": {
-    "quotemark": [true, "single", "jsx-double"]
+    "quotemark": [true, "single", "jsx-double"],
+    "member-ordering": false,
+    "no-submodule-imports": false,
+    "no-console": [true, "warning"],
+    "object-literal-sort-keys": false,
+    "ordered-imports": false
+  },
+  "linterOptions": {
+    "exclude": ["**/*.js"]
   }
 }
