@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders children correctly 1`] = `
+<div
+  class="sc-bdVaJa kttCLS"
+>
+  <span>
+    <img
+      alt="logo"
+    />
+  </span>
+  <span>
+    Hello 
+    sample
+     !
+  </span>
+</div>
+`;

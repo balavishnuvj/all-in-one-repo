@@ -3,82 +3,17 @@
 exports[`renders children correctly 1`] = `
 <div>
   <div
-    class="root"
+    class="sc-bdVaJa kttCLS"
   >
-    <div
-      class="container"
-    >
-      <div
-        class="root"
-        role="navigation"
-      >
-        <a
-          class="link"
-          href="/about"
-        >
-          About
-        </a>
-        <a
-          class="link"
-          href="/contact"
-        >
-          Contact
-        </a>
-        <span
-          class="spacer"
-        >
-           | 
-        </span>
-        <a
-          class="link"
-          href="/login"
-        >
-          Log in
-        </a>
-        <span
-          class="spacer"
-        >
-          or
-        </span>
-        <a
-          class="link highlight"
-          href="/register"
-        >
-          Sign up
-        </a>
-      </div>
-      <a
-        class="brand"
-        href="/"
-      >
-        <img
-          alt="React"
-          height="38"
-          src="logo-small.png"
-          srcset="logo-small@2x.png 2x"
-          width="38"
-        />
-        <span
-          class="brandTxt"
-        >
-          Your Company
-        </span>
-      </a>
-      <div
-        class="banner"
-      >
-        <h1
-          class="bannerTitle"
-        >
-          React
-        </h1>
-        <p
-          class="bannerDesc"
-        >
-          Complex web apps made easy
-        </p>
-      </div>
-    </div>
+    <span>
+      <img
+        alt="logo"
+      />
+    </span>
+    <span>
+      Hello 
+       !
+    </span>
   </div>
   <div
     class="child"

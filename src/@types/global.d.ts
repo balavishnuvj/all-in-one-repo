@@ -12,3 +12,8 @@ interface IError {
     status: number;
     stack: string;
 }
+
+declare module '*.png' {
+  const DEFAULT: string;
+  export default DEFAULT;
+}
