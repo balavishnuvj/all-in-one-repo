@@ -1,84 +1,79 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Layout renders children correctly 1`] = `
+exports[`renders children correctly 1`] = `
 <div>
   <div
-    className="root"
+    class="root"
   >
     <div
-      className="container"
+      class="container"
     >
       <div
-        className="root"
+        class="root"
         role="navigation"
       >
         <a
-          className="link"
+          class="link"
           href="/about"
-          onClick={[Function]}
         >
           About
         </a>
         <a
-          className="link"
+          class="link"
           href="/contact"
-          onClick={[Function]}
         >
           Contact
         </a>
         <span
-          className="spacer"
+          class="spacer"
         >
            | 
         </span>
         <a
-          className="link"
+          class="link"
           href="/login"
-          onClick={[Function]}
         >
           Log in
         </a>
         <span
-          className="spacer"
+          class="spacer"
         >
           or
         </span>
         <a
-          className="link highlight"
+          class="link highlight"
           href="/register"
-          onClick={[Function]}
         >
           Sign up
         </a>
       </div>
       <a
-        className="brand"
+        class="brand"
         href="/"
-        onClick={[Function]}
       >
         <img
           alt="React"
           height="38"
           src="logo-small.png"
-          srcSet="logo-small@2x.png 2x"
+          srcset="logo-small@2x.png 2x"
           width="38"
         />
         <span
-          className="brandTxt"
+          class="brandTxt"
         >
           Your Company
         </span>
       </a>
       <div
-        className="banner"
+        class="banner"
       >
         <h1
-          className="bannerTitle"
+          class="bannerTitle"
         >
           React
         </h1>
         <p
-          className="bannerDesc"
+          class="bannerDesc"
         >
           Complex web apps made easy
         </p>
@@ -86,27 +81,27 @@ exports[`Layout renders children correctly 1`] = `
     </div>
   </div>
   <div
-    className="child"
+    class="child"
   />
   <div
-    className="root"
+    class="root"
   >
     <div
-      className="container"
+      class="container"
     >
       <a
-        className="link"
+        class="link"
         href="https://gitter.im/kriasoft/react-starter-kit"
       >
         Ask a question
       </a>
       <span
-        className="spacer"
+        class="spacer"
       >
         |
       </span>
       <a
-        className="link"
+        class="link"
         href="https://github.com/kriasoft/react-starter-kit/issues/new"
       >
         Report an issue
@@ -114,61 +109,57 @@ exports[`Layout renders children correctly 1`] = `
     </div>
   </div>
   <div
-    className="root"
+    class="root"
   >
     <div
-      className="container"
+      class="container"
     >
       <span
-        className="text"
+        class="text"
       >
         © Your Company
       </span>
       <span
-        className="spacer"
+        class="spacer"
       >
         ·
       </span>
       <a
-        className="link"
+        class="link"
         href="/"
-        onClick={[Function]}
       >
         Home
       </a>
       <span
-        className="spacer"
+        class="spacer"
       >
         ·
       </span>
       <a
-        className="link"
+        class="link"
         href="/admin"
-        onClick={[Function]}
       >
         Admin
       </a>
       <span
-        className="spacer"
+        class="spacer"
       >
         ·
       </span>
       <a
-        className="link"
+        class="link"
         href="/privacy"
-        onClick={[Function]}
       >
         Privacy
       </a>
       <span
-        className="spacer"
+        class="spacer"
       >
         ·
       </span>
       <a
-        className="link"
+        class="link"
         href="/not-found"
-        onClick={[Function]}
       >
         Not Found
       </a>
