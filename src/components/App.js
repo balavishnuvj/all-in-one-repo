@@ -10,6 +10,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ApolloProvider } from 'react-apollo';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import styledNormalize from 'styled-normalize';
+import theme from '../constants/client/theme';
+import globalStyles from '../constants/client/globalStyles';
+
+const GlobalStyle = createGlobalStyle`
+${styledNormalize}
+${globalStyles}
+`;
 
 const ContextType = {
   // Enables critical path CSS rendering
@@ -64,7 +73,12 @@ class App extends React.PureComponent {
     } = this.props;
     // NOTE: If you need to add or modify header, footer etc. of the app,
     // please do that inside the Layout component.
-    return <ApolloProvider client={client}>{children}</ApolloProvider>;
+    return (
+      <ApolloProvider client={client}>
+        <GlobalStyle />
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      </ApolloProvider>
+    );
   }
 }
 
