@@ -1,15 +1,17 @@
 import { Express } from 'express';
 
-export interface IGlobal {
-  navigator: {
-    userAgent: string;
-  };
-}
-
-export declare const global: IGlobal;
-
 export interface IExpressWithHMR extends Express {
   hot?: object;
 }
 
-export declare const module: any;
+export interface IHotNodeModule extends NodeModule {
+  hot: {
+    accept: (path: string) => void;
+  };
+}
+
+export interface IGlobal extends NodeJS.Global {
+  navigator: {
+    userAgent: string;
+  };
+}

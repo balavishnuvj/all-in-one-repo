@@ -1,32 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Layout renders children correctly 1`] = `
+exports[`renders children correctly 1`] = `
 <div>
-  <Header.tsx
-    testingProps="Sri Kanya"
+  <div
+    class="sc-bdVaJa kttCLS"
+  >
+    <span>
+      <img
+        alt="logo"
+      />
+    </span>
+    <span>
+      Hello 
+       !
+    </span>
+  </div>
+  <div
+    class="child"
   />
   <div
-    className="child"
-  />
-  <div
-    className="root"
+    class="root"
   >
     <div
-      className="container"
+      class="container"
     >
       <a
-        className="link"
+        class="link"
         href="https://gitter.im/kriasoft/react-starter-kit"
       >
         Ask a question
       </a>
       <span
-        className="spacer"
+        class="spacer"
       >
         |
       </span>
       <a
-        className="link"
+        class="link"
         href="https://github.com/kriasoft/react-starter-kit/issues/new"
       >
         Report an issue
@@ -34,61 +44,57 @@ exports[`Layout renders children correctly 1`] = `
     </div>
   </div>
   <div
-    className="root"
+    class="root"
   >
     <div
-      className="container"
+      class="container"
     >
       <span
-        className="text"
+        class="text"
       >
         © Your Company
       </span>
       <span
-        className="spacer"
+        class="spacer"
       >
         ·
       </span>
       <a
-        className="link"
+        class="link"
         href="/"
-        onClick={[Function]}
       >
         Home
       </a>
       <span
-        className="spacer"
+        class="spacer"
       >
         ·
       </span>
       <a
-        className="link"
+        class="link"
         href="/admin"
-        onClick={[Function]}
       >
         Admin
       </a>
       <span
-        className="spacer"
+        class="spacer"
       >
         ·
       </span>
       <a
-        className="link"
+        class="link"
         href="/privacy"
-        onClick={[Function]}
       >
         Privacy
       </a>
       <span
-        className="spacer"
+        class="spacer"
       >
         ·
       </span>
       <a
-        className="link"
+        class="link"
         href="/not-found"
-        onClick={[Function]}
       >
         Not Found
       </a>

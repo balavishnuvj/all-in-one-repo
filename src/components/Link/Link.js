@@ -30,7 +30,7 @@ class Link extends React.Component {
     onClick: null,
   };
 
-  handleClick = event => {
+  handleClick = (event) => {
     const { onClick, to } = this.props;
     if (onClick) {
       onClick(event);
