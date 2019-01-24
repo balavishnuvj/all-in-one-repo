@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
   HeaderContainer,
-} from './Header.styled';
+} from './Head.styled';
 import IogoSmall from './logo-small.png';
 
 interface IProps {
