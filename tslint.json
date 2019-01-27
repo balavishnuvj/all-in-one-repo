@@ -1,12 +1,21 @@
 {
-  "extends": ["tslint:latest", "tslint-react"],
+  "extends": ["tslint-react", "tslint-config-airbnb", "tslint-eslint-rules"],
   "rules": {
     "quotemark": [true, "single", "jsx-double"],
     "member-ordering": false,
     "no-submodule-imports": false,
     "no-console": [true, "warning"],
     "object-literal-sort-keys": false,
-    "ordered-imports": false
+    "ordered-imports": false,
+    "import-name": false,
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-pascal-case"
+    ],
+    "ter-arrow-parens": "always",
+    "object-shorthand-properties-first": false
   },
   "linterOptions": {
     "exclude": ["**/*.js"]
