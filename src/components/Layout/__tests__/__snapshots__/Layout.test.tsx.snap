@@ -19,6 +19,14 @@ exports[`renders children correctly 1`] = `
   <div
     class="c0"
   >
+    <button
+      class="ant-btn ant-btn-primary"
+      type="button"
+    >
+      <span>
+        Button
+      </span>
+    </button>
     <span>
       <img
         alt="logo"
@@ -32,31 +40,6 @@ exports[`renders children correctly 1`] = `
   <div
     class="child"
   />
-  <div
-    class="root"
-  >
-    <div
-      class="container"
-    >
-      <a
-        class="link"
-        href="https://gitter.im/kriasoft/react-starter-kit"
-      >
-        Ask a question
-      </a>
-      <span
-        class="spacer"
-      >
-        |
-      </span>
-      <a
-        class="link"
-        href="https://github.com/kriasoft/react-starter-kit/issues/new"
-      >
-        Report an issue
-      </a>
-    </div>
-  </div>
   <div
     class="root"
   >

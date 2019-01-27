@@ -18,6 +18,14 @@ exports[`renders children correctly 1`] = `
 <div
   class="c0"
 >
+  <button
+    class="ant-btn ant-btn-primary"
+    type="button"
+  >
+    <span>
+      Button
+    </span>
+  </button>
   <span>
     <img
       alt="logo"
