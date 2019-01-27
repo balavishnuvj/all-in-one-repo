@@ -9,6 +9,7 @@ interface IProps {
   testingProps?: string;
 }
 
+// tslint:disable-next-line function-name
 function Header(props: IProps) {
   const { testingProps } = props;
   return (
