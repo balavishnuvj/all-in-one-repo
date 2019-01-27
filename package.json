@@ -73,7 +73,8 @@
     "typescript": "^3.2.4",
     "typescript-eslint-parser": "^22.0.0",
     "universal-router": "^6.0.0",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.0.0",
+    "antd": "^3.12.4"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -85,8 +86,8 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "antd": "^3.12.4",
     "@types/jest": "^23.3.13",
+    
     "autoprefixer": "^9.1.5",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^9.0.0",
@@ -122,6 +123,8 @@
     "jest-styled-components": "^6.3.1",
     "jest-transform-graphql": "^2.1.0",
     "jscodeshift": "^0.6.2",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
     "lint-staged": "^7.3.0",
     "markdown-it": "^8.4.2",
     "mkdirp": "^0.5.1",
@@ -153,9 +156,9 @@
     "react-testing-library": "^5.4.4",
     "rimraf": "^2.6.2",
     "style-loader": "^0.23.1",
-    "stylelint-config-standard": "^18.2.0",
     "stylelint": "^9.10.1",
     "stylelint-config-recommended": "^2.1.0",
+    "stylelint-config-standard": "^18.2.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-order": "^0.8.1",
     "stylelint-processor-styled-components": "^1.5.2",
