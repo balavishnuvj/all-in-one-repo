@@ -44,8 +44,8 @@ export const resolvers = {
       if (new Date() - lastFetchTime > 1000 * 60 * 10 /* 10 mins */) {
         lastFetchTime = new Date();
         lastFetchTask = fetch(url)
-          .then(response => response.json())
-          .then(data => {
+          .then((response) => response.json())
+          .then((data) => {
             if (data.status === 'ok') {
               items = data.items;
             }
@@ -53,7 +53,7 @@ export const resolvers = {
             lastFetchTask = null;
             return items;
           })
-          .catch(err => {
+          .catch((err) => {
             lastFetchTask = null;
             throw err;
           });

@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders children correctly 1`] = `
+.c0 {
+  background: black;
+  color: white;
+  padding: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+<div>
+  <div
+    class="c0"
+  >
+    <span>
+      <img
+        alt="logo"
+      />
+    </span>
+    <span>
+      Hello 
+       !
+    </span>
+  </div>
+  <div
+    class="child"
+  />
+  <div
+    class="root"
+  >
+    <div
+      class="container"
+    >
+      <a
+        class="link"
+        href="https://gitter.im/kriasoft/react-starter-kit"
+      >
+        Ask a question
+      </a>
+      <span
+        class="spacer"
+      >
+        |
+      </span>
+      <a
+        class="link"
+        href="https://github.com/kriasoft/react-starter-kit/issues/new"
+      >
+        Report an issue
+      </a>
+    </div>
+  </div>
+  <div
+    class="root"
+  >
+    <div
+      class="container"
+    >
+      <span
+        class="text"
+      >
+        © Your Company
+      </span>
+      <span
+        class="spacer"
+      >
+        ·
+      </span>
+      <a
+        class="link"
+        href="/"
+      >
+        Home
+      </a>
+      <span
+        class="spacer"
+      >
+        ·
+      </span>
+      <a
+        class="link"
+        href="/admin"
+      >
+        Admin
+      </a>
+      <span
+        class="spacer"
+      >
+        ·
+      </span>
+      <a
+        class="link"
+        href="/privacy"
+      >
+        Privacy
+      </a>
+      <span
+        class="spacer"
+      >
+        ·
+      </span>
+      <a
+        class="link"
+        href="/not-found"
+      >
+        Not Found
+      </a>
+    </div>
+  </div>
+</div>
+`;

@@ -36,7 +36,7 @@ class Home extends React.Component {
           <h1>React.js News</h1>
           {loading
             ? 'Loading...'
-            : reactjsGetAllNews.map(item => (
+            : reactjsGetAllNews.map((item) => (
                 <article key={item.link} className="newsItem">
                   <h1 className="newsTitle">
                     <a href={item.link}>{item.title}</a>

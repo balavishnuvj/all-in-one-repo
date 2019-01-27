@@ -9,17 +9,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import styledNormalize from 'styled-normalize';
-import theme from '../../utils/shared/theme';
-import globalStyles from './globalStyles';
 import Header from '../Header/Header';
 import Footer from '../Footer';
 
-const GlobalStyle = createGlobalStyle`
-${styledNormalize}
-${globalStyles}
-`;
 class Layout extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
@@ -28,14 +20,11 @@ class Layout extends React.Component {
   render() {
     const { children } = this.props;
     return (
-      <ThemeProvider theme={theme}>
-        <div>
-          <Header />
-          <GlobalStyle />
-          {children}
-          <Footer />
-        </div>
-      </ThemeProvider>
+      <div>
+        <Header />
+        {children}
+        <Footer />
+      </div>
     );
   }
 }

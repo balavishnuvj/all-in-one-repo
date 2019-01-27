@@ -15,8 +15,16 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-typescript": "^7.1.0",
+    "@types/bluebird": "^3.5.25",
+    "@types/cookie-parser": "^1.4.1",
+    "@types/express-graphql": "^0.6.2",
+    "@types/express-jwt": "^0.0.41",
+    "@types/graphql": "^14.0.5",
+    "@types/jsonwebtoken": "^8.3.0",
+    "@types/node-fetch": "^2.1.4",
     "@types/react": "^16.7.20",
     "@types/react-dom": "^16.0.11",
+    "@types/react-test-renderer": "^16.0.3",
     "@types/styled-components": "^4.1.6",
     "apollo-boost": "^0.1.23",
     "apollo-cache-inmemory": "^1.4.0",
@@ -78,6 +86,7 @@
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "antd": "^3.12.4",
+    "@types/jest": "^23.3.13",
     "autoprefixer": "^9.1.5",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^9.0.0",
@@ -109,6 +118,8 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.6.0",
     "jest-codemods": "^0.19.1",
+    "jest-dom": "^3.0.0",
+    "jest-styled-components": "^6.3.1",
     "jest-transform-graphql": "^2.1.0",
     "jscodeshift": "^0.6.2",
     "lint-staged": "^7.3.0",
@@ -139,12 +150,17 @@
     "react-dev-utils": "^5.0.2",
     "react-error-overlay": "^4.0.1",
     "react-test-renderer": "^16.5.2",
+    "react-testing-library": "^5.4.4",
     "rimraf": "^2.6.2",
     "style-loader": "^0.23.1",
-    "stylelint": "^9.3.0",
     "stylelint-config-standard": "^18.2.0",
+    "stylelint": "^9.10.1",
+    "stylelint-config-recommended": "^2.1.0",
+    "stylelint-config-styled-components": "^0.1.1",
     "stylelint-order": "^0.8.1",
+    "stylelint-processor-styled-components": "^1.5.2",
     "svg-url-loader": "^2.3.2",
+    "ts-jest": "^23.10.5",
     "url-loader": "^1.1.1",
     "webpack": "^4.19.1",
     "webpack-assets-manifest": "^3.0.2",
@@ -163,14 +179,14 @@
         "git add --force"
       ],
       "*.{ts,tsx}": [
-        "eslint --no-ignore --fix",
+        "tslint --fix -p tsconfig.json",
         "git add --force"
       ],
       "*.{json,md,graphql}": [
         "prettier --write",
         "git add --force"
       ],
-      "*.{css,less,styl,scss,sass,sss}": [
+      "*.styled.{js,ts}?(x)": [
         "stylelint --fix",
         "git add --force"
       ]
@@ -178,9 +194,10 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "lint-js": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" .",
-    "lint-css": "stylelint \"src/**/*.{css,less,styl,scss,sass,sss}\"",
-    "lint": "yarn run lint-js && yarn run lint-css",
+    "lint-js": "eslint --ignore-path .gitignore .",
+    "lint-ts": "tslint --config tslint.json --project tsconfig.json",
+    "lint-css": "stylelint \"src/**/*.styled.{js,ts}?(x)\"",
+    "lint": "yarn run lint-js && yarn run lint-css && yarn run lint-ts",
     "fix-js": "yarn run lint-js --fix",
     "fix-css": "yarn run lint-css --fix",
     "fix": "yarn run fix-js && yarn run fix-css",
@@ -199,6 +216,8 @@
     "deploy": "babel-node tools/run deploy",
     "render": "babel-node tools/run render",
     "serve": "babel-node tools/run runServer",
-    "start": "babel-node tools/run start"
+    "start": "babel-node tools/run start",
+    "tsc": "tsc",
+    "validate": "yarn run lint && yarn run test && yarn run tsc"
   }
 }

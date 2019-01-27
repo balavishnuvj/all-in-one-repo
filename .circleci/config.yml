@@ -19,8 +19,5 @@ jobs:
           paths:
             - ~/.cache/yarn
       - run:
-          name: lint
-          command: yarn lint
-      - run:
-          name: test
-          command: yarn test --coverage
+          name: validate
+          command: yarn run validate

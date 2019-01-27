@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders children correctly 1`] = `
+.c0 {
+  background: black;
+  color: white;
+  padding: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+<div
+  class="c0"
+>
+  <span>
+    <img
+      alt="logo"
+    />
+  </span>
+  <span>
+    Hello 
+    sample
+     !
+  </span>
+</div>
+`;

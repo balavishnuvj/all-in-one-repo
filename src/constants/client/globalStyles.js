@@ -1,4 +1,4 @@
-import theme from '../../utils/shared/theme';
+import theme from './theme';
 
 const globalStyles = `
 html {

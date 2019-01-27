@@ -34,7 +34,7 @@ module.exports = {
 
   // https://facebook.github.io/jest/docs/en/configuration.html#collectcoveragefrom-array
   collectCoverageFrom: [
-    'src/**/*.{js,jsx}',
+    'src/**/*.{js,jsx,ts,tsx}',
     '!**/node_modules/**',
     '!**/vendor/**',
   ],
@@ -98,10 +98,10 @@ module.exports = {
   // testRunner: // [string]
   // testURL: // [string]
   // timers: // [string]
-
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(ts|tsx|js|jsx|mjs)$',
   transform: {
     '\\.(js|jsx|mjs)$': '<rootDir>/node_modules/babel-jest',
-    '^.+\\.ts?$': '<rootDir>/node_modules/babel-jest',
+    '\\.(ts|tsx)$': '<rootDir>/node_modules/ts-jest',
     '\\.(gql|graphql)$': '<rootDir>/node_modules/jest-transform-graphql',
     '^(?!.*\\.(js|jsx|json|css|less|styl|scss|sass|sss)$)':
       '<rootDir>/tools/lib/fileTransformer.js',
@@ -109,6 +109,8 @@ module.exports = {
 
   // transformIgnorePatterns: // [array<string>]
   // unmockedModulePathPatterns: // [array<string>]
-
+  setupTestFrameworkScriptFile: require.resolve(
+    './src/utils/shared/test/jest.setup.js',
+  ),
   verbose: true, // [boolean]
 };

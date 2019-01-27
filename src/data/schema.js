@@ -74,5 +74,5 @@ const schema = [
 export default makeExecutableSchema({
   typeDefs: schema,
   resolvers,
-  ...(__DEV__ ? { log: e => console.error(e.stack) } : {}),
+  ...(__DEV__ ? { log: (e) => console.error(e.stack) } : {}),
 });
