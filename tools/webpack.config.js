@@ -15,6 +15,7 @@ import nodeExternals from 'webpack-node-externals';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import overrideRules from './lib/overrideRules';
 import pkg from '../package.json';
+import theme from './theme.js';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const resolvePath = (...args) => path.resolve(ROOT_DIR, ...args);
@@ -140,12 +141,7 @@ const config = {
           {
             loader: 'less-loader', // compiles Less to CSS
             options: {
-              modifyVars: {
-                // Customize AntD Variables
-                'primary-color': '#1DA',
-                'link-color': '#1DA57A',
-                'border-radius-base': '2px',
-              },
+              modifyVars: theme,
               javascriptEnabled: true,
             },
           },

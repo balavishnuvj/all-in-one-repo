@@ -9,7 +9,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import newsQuery from './queries/news.graphql';
 
 class Home extends React.Component {
@@ -54,4 +54,4 @@ class Home extends React.Component {
   }
 }
 
-export default compose(graphql(newsQuery))(Home);
+export default graphql(newsQuery)(Home);
