@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import { ApolloProvider } from 'react-apollo';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import styledNormalize from 'styled-normalize';
-import theme from '../constants/client/theme';
+import { styledTheme } from '../constants/client/theme';
 import globalStyles from '../constants/client/globalStyles';
 
 const GlobalStyle = createGlobalStyle`
@@ -76,7 +76,7 @@ class App extends React.PureComponent {
     return (
       <ApolloProvider client={client}>
         <GlobalStyle />
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        <ThemeProvider theme={styledTheme}>{children}</ThemeProvider>
       </ApolloProvider>
     );
   }

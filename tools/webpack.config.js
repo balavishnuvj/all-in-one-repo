@@ -15,7 +15,7 @@ import nodeExternals from 'webpack-node-externals';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import overrideRules from './lib/overrideRules';
 import pkg from '../package.json';
-import theme from './theme.js';
+import { antDTheme } from '../src/constants/client/theme';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const resolvePath = (...args) => path.resolve(ROOT_DIR, ...args);
@@ -141,7 +141,7 @@ const config = {
           {
             loader: 'less-loader', // compiles Less to CSS
             options: {
-              modifyVars: theme,
+              modifyVars: antDTheme,
               javascriptEnabled: true,
             },
           },
