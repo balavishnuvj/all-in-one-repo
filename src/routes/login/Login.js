@@ -9,8 +9,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Login.css';
 
 class Login extends React.Component {
   static propTypes = {
@@ -20,16 +18,16 @@ class Login extends React.Component {
   render() {
     const { title } = this.props;
     return (
-      <div className={s.root}>
-        <div className={s.container}>
+      <div className="root">
+        <div className="container">
           <h1>{title}</h1>
-          <p className={s.lead}>
+          <p className="lead">
             Log in with your username or company email address.
           </p>
-          <div className={s.formGroup}>
-            <a className={s.facebook} href="/login/facebook">
+          <div className="formGroup">
+            <a className="facebook" href="/login/facebook">
               <svg
-                className={s.icon}
+                className="icon"
                 width="30"
                 height="30"
                 viewBox="0 0 30 30"
@@ -40,10 +38,10 @@ class Login extends React.Component {
               <span>Log in with Facebook</span>
             </a>
           </div>
-          <div className={s.formGroup}>
-            <a className={s.google} href="/login/google">
+          <div className="formGroup">
+            <a className="google" href="/login/google">
               <svg
-                className={s.icon}
+                className="icon"
                 width="30"
                 height="30"
                 viewBox="0 0 30 30"
@@ -65,10 +63,10 @@ class Login extends React.Component {
               <span>Log in with Google</span>
             </a>
           </div>
-          <div className={s.formGroup}>
-            <a className={s.twitter} href="/login/twitter">
+          <div className="formGroup">
+            <a className="twitter" href="/login/twitter">
               <svg
-                className={s.icon}
+                className="icon"
                 width="30"
                 height="30"
                 viewBox="0 0 30 30"
@@ -89,13 +87,13 @@ class Login extends React.Component {
               <span>Log in with Twitter</span>
             </a>
           </div>
-          <strong className={s.lineThrough}>OR</strong>
+          <strong className="lineThrough">OR</strong>
           <form method="post">
-            <div className={s.formGroup}>
-              <label className={s.label} htmlFor="usernameOrEmail">
+            <div className="formGroup">
+              <label className="label" htmlFor="usernameOrEmail">
                 Username or email address:
                 <input
-                  className={s.input}
+                  className="input"
                   id="usernameOrEmail"
                   type="text"
                   name="usernameOrEmail"
@@ -103,19 +101,19 @@ class Login extends React.Component {
                 />
               </label>
             </div>
-            <div className={s.formGroup}>
-              <label className={s.label} htmlFor="password">
+            <div className="formGroup">
+              <label className="label" htmlFor="password">
                 Password:
                 <input
-                  className={s.input}
+                  className="input"
                   id="password"
                   type="password"
                   name="password"
                 />
               </label>
             </div>
-            <div className={s.formGroup}>
-              <button className={s.button} type="submit">
+            <div className="formGroup">
+              <button className="button" type="submit">
                 Log in
               </button>
             </div>
@@ -126,4 +124,4 @@ class Login extends React.Component {
   }
 }
 
-export default withStyles(s)(Login);
+export default Login;

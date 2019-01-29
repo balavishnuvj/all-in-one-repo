@@ -9,10 +9,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, compose } from 'react-apollo';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { graphql } from 'react-apollo';
 import newsQuery from './queries/news.graphql';
-import s from './Home.css';
 
 class Home extends React.Component {
   static propTypes = {
@@ -33,18 +31,18 @@ class Home extends React.Component {
       data: { loading, reactjsGetAllNews },
     } = this.props;
     return (
-      <div className={s.root}>
-        <div className={s.container}>
+      <div className="root">
+        <div className="container">
           <h1>React.js News</h1>
           {loading
             ? 'Loading...'
             : reactjsGetAllNews.map((item) => (
-                <article key={item.link} className={s.newsItem}>
-                  <h1 className={s.newsTitle}>
+                <article key={item.link} className="newsItem">
+                  <h1 className="newsTitle">
                     <a href={item.link}>{item.title}</a>
                   </h1>
                   <div
-                    className={s.newsDesc}
+                    className="newsDesc"
                     // eslint-disable-next-line react/no-danger
                     dangerouslySetInnerHTML={{ __html: item.content }}
                   />
@@ -56,7 +54,4 @@ class Home extends React.Component {
   }
 }
 
-export default compose(
-  withStyles(s),
-  graphql(newsQuery),
-)(Home);
+export default graphql(newsQuery)(Home);

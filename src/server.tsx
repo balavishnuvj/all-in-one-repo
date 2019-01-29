@@ -28,7 +28,6 @@ import App from './components/App.js';
 import Html from './components/Html';
 import createApolloClient from './utils/shared/apollo/createApolloClient.server';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
-import errorPageStyle from './routes/error/ErrorPage.css';
 import createFetch from './createFetch';
 import passport from './passport';
 import router from './router';
@@ -239,7 +238,7 @@ app.use((err: IError, req: express.Request, res: express.Response) => {
     <Html
       title="Internal Server Error"
       description={err.message}
-      styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]}
+      // styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]}
     >
       {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
     </Html>,

@@ -15,6 +15,7 @@ import nodeExternals from 'webpack-node-externals';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import overrideRules from './lib/overrideRules';
 import pkg from '../package.json';
+import { antDTheme } from '../src/constants/client/theme';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const resolvePath = (...args) => path.resolve(ROOT_DIR, ...args);
@@ -33,11 +34,6 @@ const reImage = /\.(bmp|gif|jpg|jpeg|png|svg)$/;
 const staticAssetName = isDebug
   ? '[path][name].[ext]?[hash:8]'
   : '[hash:8].[ext]';
-
-// CSS Nano options http://cssnano.co/
-const minimizeCssOptions = {
-  discardComments: { removeAll: true },
-};
 
 //
 // Common configuration chunk to be used for both
@@ -132,29 +128,31 @@ const config = {
         loader: 'graphql-tag/loader',
       },
 
-      // Rules for Style Sheets
       {
         test: reStyle,
-        rules: [
-          // Convert CSS into JS module
+        include: [/node_modules\/.*antd/],
+        use: [
           {
-            issuer: { not: [reStyle] },
-            use: 'isomorphic-style-loader',
+            loader: 'style-loader',
           },
-
-          // Process external/third-party styles
           {
-            exclude: SRC_DIR,
             loader: 'css-loader',
+          },
+          {
+            loader: 'less-loader', // compiles Less to CSS
             options: {
-              sourceMap: isDebug,
-              minimize: isDebug ? false : minimizeCssOptions,
+              modifyVars: antDTheme,
+              javascriptEnabled: true,
             },
           },
+        ],
+      },
 
-          // Process internal/project styles (from src folder)
+      {
+        test: reStyle,
+        exclude: [/node_modules\/.*antd/],
+        use: [
           {
-            include: SRC_DIR,
             loader: 'css-loader',
             options: {
               // CSS Loader https://github.com/webpack/css-loader
@@ -165,12 +163,11 @@ const config = {
               localIdentName: isDebug
                 ? '[name]-[local]-[hash:base64:5]'
                 : '[hash:base64:5]',
-              // CSS Nano http://cssnano.co/
-              minimize: isDebug ? false : minimizeCssOptions,
+              // CSS Nano http://cssnano.co/options/
+              minimize: !isDebug,
+              discardComments: { removeAll: true },
             },
           },
-
-          // Apply PostCSS plugins including autoprefixer
           {
             loader: 'postcss-loader',
             options: {
@@ -179,22 +176,6 @@ const config = {
               },
             },
           },
-
-          // Compile Less to CSS
-          // https://github.com/webpack-contrib/less-loader
-          // Install dependencies before uncommenting: yarn add --dev less-loader less
-          // {
-          //   test: /\.less$/,
-          //   loader: 'less-loader',
-          // },
-
-          // Compile Sass to CSS
-          // https://github.com/webpack-contrib/sass-loader
-          // Install dependencies before uncommenting: yarn add --dev sass-loader node-sass
-          // {
-          //   test: /\.(scss|sass)$/,
-          //   loader: 'sass-loader',
-          // },
         ],
       },
 
@@ -511,5 +492,10 @@ const serverConfig = {
     __dirname: false,
   },
 };
+
+clientConfig.module.rules[0].options.plugins = [
+  ...clientConfig.module.rules[0].options.plugins,
+  ['import', { libraryName: 'antd', style: true }],
+];
 
 export default [clientConfig, serverConfig];

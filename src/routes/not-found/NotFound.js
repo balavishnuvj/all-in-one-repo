@@ -9,8 +9,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './NotFound.css';
 
 class NotFound extends React.Component {
   static propTypes = {
@@ -20,8 +18,8 @@ class NotFound extends React.Component {
   render() {
     const { title } = this.props;
     return (
-      <div className={s.root}>
-        <div className={s.container}>
+      <div className="root">
+        <div className="container">
           <h1>{title}</h1>
           <p>Sorry, the page you were trying to view does not exist.</p>
         </div>
@@ -30,4 +28,4 @@ class NotFound extends React.Component {
   }
 }
 
-export default withStyles(s)(NotFound);
+export default NotFound;

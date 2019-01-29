@@ -1,11 +1,11 @@
-import theme from './theme';
+import { commonTheme } from './theme';
 
 const globalStyles = `
 html {
     color: #222;
     font-weight: 100;
     font-size: 1em;
-    font-family: ${theme.fontFamilyBase};
+    font-family: ${commonTheme.fontBase};
     line-height: 1.375;
   }
   body {

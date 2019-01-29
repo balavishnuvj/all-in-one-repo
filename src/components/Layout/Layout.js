@@ -10,7 +10,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../Header/Header';
-import Feedback from '../Feedback';
 import Footer from '../Footer';
 
 class Layout extends React.Component {
@@ -24,7 +23,6 @@ class Layout extends React.Component {
       <div>
         <Header />
         {children}
-        <Feedback />
         <Footer />
       </div>
     );

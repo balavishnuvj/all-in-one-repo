@@ -1,8 +1,16 @@
-export default {
+const commonTheme = {
+  fontBase: 'Segoe UI, HelveticaNeue-Light, sans-serif',
+  color: {
+    primary: '#1DA',
+    linkColor: '#1DA57A',
+  },
+};
+
+const styledTheme = {
   /*
    * Typography
    * ======================================================================== */
-  fontFamilyBase: 'Segoe UI, HelveticaNeue-Light, sans-serif',
+  fontFamilyBase: commonTheme.fontBase,
 
   /*
    * Layout
@@ -18,3 +26,11 @@ export default {
   screenMdMin: '992px' /* Medium screen / desktop */,
   screenLgMin: '1200px' /* Large screen / wide desktop */,
 };
+
+const antDTheme = {
+  'primary-color': commonTheme.color.primary,
+  'link-color': commonTheme.color.linkColor,
+  'border-radius-base': '2px',
+};
+
+export { commonTheme, styledTheme, antDTheme };
